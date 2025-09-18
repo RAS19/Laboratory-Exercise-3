@@ -1,5 +1,5 @@
 import React from 'react';
-import { SquareProps } from '../types/gameTypes';
+import type { SquareProps } from '../types/gameTypes';
 
 const Square: React.FC<SquareProps> = ({ value, onSquareClick }) => {
   return (

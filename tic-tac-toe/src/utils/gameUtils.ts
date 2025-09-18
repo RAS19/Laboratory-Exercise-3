@@ -1,6 +1,6 @@
-import { BoardSquares } from '../types/gameTypes';
+import type { SquareValue } from '../types/gameTypes';
 
-export function calculateWinner(squares: BoardSquares): 'X' | 'O' | null {
+export function calculateWinner(squares: SquareValue[]): SquareValue {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -11,10 +11,13 @@ export function calculateWinner(squares: BoardSquares): 'X' | 'O' | null {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+    if (
+      squares[a] &&
+      squares[a] === squares[b] &&
+      squares[a] === squares[c]
+    ) {
       return squares[a];
     }
   }

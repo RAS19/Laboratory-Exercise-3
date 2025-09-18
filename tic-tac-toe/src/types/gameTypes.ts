@@ -9,8 +9,8 @@ export interface SquareProps {
 
 export interface BoardProps {
   xIsNext: boolean;
-  squares: BoardSquares;
-  onPlay: (squares: BoardSquares) => void;
+  squares: SquareValue[];
+  onPlay: (nextSquares: SquareValue[]) => void;
 }
 
 export interface GameMove {

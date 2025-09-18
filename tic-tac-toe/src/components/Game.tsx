@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Board from './Board';
-import { BoardSquares } from '../types/gameTypes';
+import type { BoardSquares } from '../types/gameTypes';
 
 const Game: React.FC = () => {
   const [history, setHistory] = useState<BoardSquares[]>([Array(9).fill(null)]);
@@ -18,7 +18,7 @@ const Game: React.FC = () => {
     setCurrentMove(nextMove);
   }
 
-  const moves = history.map((squares, move) => {
+  const moves = history.map((_, move) => {
     let description;
     if (move > 0) {
       description = 'Go to move #' + move;
