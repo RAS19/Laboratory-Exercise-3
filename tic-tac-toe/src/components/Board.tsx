@@ -1,6 +1,6 @@
 import React from 'react';
 import Square from './Square';
-import { BoardProps } from '../types/gameTypes';
+import type { BoardProps } from '../types/gameTypes';
 import { calculateWinner } from '../utils/gameUtils';
 
 const Board: React.FC<BoardProps> = ({ xIsNext, squares, onPlay }) => {
@@ -9,11 +9,7 @@ const Board: React.FC<BoardProps> = ({ xIsNext, squares, onPlay }) => {
       return;
     }
     const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = 'X';
-    } else {
-      nextSquares[i] = 'O';
-    }
+    nextSquares[i] = xIsNext ? 'X' : 'O';
     onPlay(nextSquares);
   }
 
