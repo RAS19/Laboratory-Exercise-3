@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Board from './components/Board';
-import Layout from './components/Layout';
-import './App.css';
+import Navbar from './components/Navbar';
 import type { SquareValue } from './types/gameTypes';
+import './App.css';
 
 function App() {
   const [history, setHistory] = useState<SquareValue[][]>([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [activeTab, setActiveTab] = useState('home');
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
@@ -21,7 +22,7 @@ function App() {
     setCurrentMove(move);
   }
 
-  const moves = history.map((_, move) => {
+  const moves = history.map((squares, move) => {
     const description = move ? `Go to move #${move}` : 'Go to game start';
     return (
       <li key={move}>
@@ -30,8 +31,9 @@ function App() {
     );
   });
 
-  return (
-    <Layout>
+  let content;
+  if (activeTab === 'home') {
+    content = (
       <div className="game">
         <div className="game-board">
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
@@ -40,7 +42,35 @@ function App() {
           <ol>{moves}</ol>
         </div>
       </div>
-    </Layout>
+    );
+  } else if (activeTab === 'about') {
+    content = (
+      <div className="about">
+        <h2>About Tic Tac Toe</h2>
+        <p>
+          Tic Tac Toe, also known as Noughts and Crosses, is a classic game dating back to ancient Egypt.
+          The modern version became popular in the 19th century. It is a simple strategy game played on a 3x3 grid,
+          where two players take turns marking X and O, aiming to get three in a row.
+        </p>
+      </div>
+    );
+  } else if (activeTab === 'developer') {
+    content = (
+      <div className="developer">
+        <h2>Developer</h2>
+        <p>
+          This Tic Tac Toe game was created by [Your Name].<br />
+          Contact: [your.email@example.com]
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
+      {content}
+    </>
   );
 }
 
