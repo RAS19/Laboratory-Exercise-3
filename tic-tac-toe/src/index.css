@@ -65,10 +65,10 @@ button:focus-visible {
 .navbar {
   width: 100%;
   background: #fff;
-  padding: 16px 0;
+  padding: 5px 0;
   display: flex;
-  align-items: center;
-  border-bottom: 3px solid #111;
+  align-items: left;
+  border-bottom: 2px solid #111;
   font-family: Arial, sans-serif;
 }
 
@@ -77,15 +77,15 @@ button:focus-visible {
   font-size: 2rem;
   font-weight: bold;
   margin-left: 32px;
-  flex: 0 0 auto; /* Prevents growing */
+  flex: 0 0 auto;
 }
 
 .navbar-links {
   display: flex;
   gap: 64px;
-  margin: 0 auto;
   flex: 1;
-  justify-content: center; /* Center the links */
+  justify-content: center;
+  margin-left: 1in;
 }
 
 .navbar-links button {
@@ -94,9 +94,10 @@ button:focus-visible {
   font-size: 2rem;
   font-family: inherit;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 250;
   color: #111;
-  padding: 0;
+  padding: 1px 10px 0;
+  flex: 0 0 auto;
 }
 
 .navbar-links .active {
@@ -131,7 +132,7 @@ button:focus-visible {
 }
 
 .square {
-  color: #111; /* Make X and O black */
+  color: #111;
   width: 100px;
   height: 100px;
   font-size: 3rem;
@@ -141,13 +142,25 @@ button:focus-visible {
   border: 2px solid #111;
   border-radius: 8px;
   transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .square:hover {
-  background: #e0e0e0;
+  background: #6debda;
+}
+
+.winner-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #f90303;
 }
 
 .status {
+  color: #111;
   margin-bottom: 10px;
   font-weight: bold;
   font-size: 1.3rem;
@@ -157,14 +170,61 @@ button:focus-visible {
   max-width: 700px;
   margin: 40px auto;
   padding: 24px;
-  background: #fff;
+  background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   text-align: center;
+  color: #000000;
 }
 
 .about h2, .developer h2 {
-  margin-top: 0;
+  color: #000000;
+}
+
+.about p, .developer p {
+  color: #000000;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+  margin-bottom: 1.5rem;
+  color: #111;
+  font-size: 2rem;
+}
+
+.popup button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.popup button:hover {
+  background-color: #45a049;
 }
 
 @media (prefers-color-scheme: light) {

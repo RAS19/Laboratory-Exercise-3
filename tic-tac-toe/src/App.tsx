@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Board from './components/Board';
 import Navbar from './components/Navbar';
 import type { SquareValue } from './types/gameTypes';
@@ -18,15 +18,16 @@ function App() {
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(move: number) {
-    setCurrentMove(move);
+  function handleResetGame() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
   }
 
-  const moves = history.map((squares, move) => {
+  const moves = history.map((_, move) => {
     const description = move ? `Go to move #${move}` : 'Go to game start';
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button onClick={() => setCurrentMove(move)}>{description}</button>
       </li>
     );
   });
@@ -36,7 +37,12 @@ function App() {
     content = (
       <div className="game">
         <div className="game-board">
-          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+          <Board
+            xIsNext={xIsNext}
+            squares={currentSquares}
+            onPlay={handlePlay}
+            onPlayAgain={handleResetGame}
+          />
         </div>
         <div className="game-info">
           <ol>{moves}</ol>
@@ -46,7 +52,7 @@ function App() {
   } else if (activeTab === 'about') {
     content = (
       <div className="about">
-        <h2>About Tic Tac Toe</h2>
+        <h2>Tic Tac Toe</h2>
         <p>
           Tic Tac Toe, also known as Noughts and Crosses, is a classic game dating back to ancient Egypt.
           The modern version became popular in the 19th century. It is a simple strategy game played on a 3x3 grid,
@@ -57,7 +63,7 @@ function App() {
   } else if (activeTab === 'developer') {
     content = (
       <div className="developer">
-        <h2>Developer</h2>
+        <h2>Developer Information</h2>
         <p>
           This Tic Tac Toe game was created by [Your Name].<br />
           Contact: [your.email@example.com]
