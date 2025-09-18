@@ -23,3 +23,7 @@ export function calculateWinner(squares: SquareValue[]): SquareValue {
   }
   return null;
 }
+
+export function checkDraw(squares: SquareValue[]): boolean {
+  return squares.every(square => square !== null) && calculateWinner(squares) === null;
+}

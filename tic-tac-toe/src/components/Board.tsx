@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Square from './Square';
 import type { BoardProps } from '../types/gameTypes';
-import { calculateWinner } from '../utils/gameUtils';
+import { calculateWinner, checkDraw } from '../utils/gameUtils';
 
-const Board: React.FC<BoardProps> = ({ xIsNext, squares, onPlay }) => {
+interface BoardPropsWithReset extends BoardProps {
+  onPlayAgain?: () => void;
+}
+
+const Board: React.FC<BoardPropsWithReset> = ({ xIsNext, squares, onPlay, onPlayAgain }) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [isDraw, setIsDraw] = useState(false);
+
+  const winner = calculateWinner(squares);
+
+  useEffect(() => {
+    if (winner) {
+      setShowPopup(true);
+      setIsDraw(false);
+    } else if (checkDraw(squares)) {
+      setShowPopup(true);
+      setIsDraw(true);
+    }
+  }, [winner, squares]);
+
   function handleClick(i: number) {
-    if (calculateWinner(squares) || squares[i]) {
+    if (winner || squares[i] || checkDraw(squares)) {
       return;
     }
     const nextSquares = squares.slice();
@@ -13,17 +32,20 @@ const Board: React.FC<BoardProps> = ({ xIsNext, squares, onPlay }) => {
     onPlay(nextSquares);
   }
 
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = 'Winner: ' + winner;
-  } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+  function handlePlayAgain() {
+    setShowPopup(false);
+    setIsDraw(false);
+    if (onPlayAgain) onPlayAgain();
   }
 
   return (
     <>
-      <div className="status">{status}</div>
+      <div className="winner-title">
+        {winner ? `Winner: ${winner}` : isDraw ? "It's a Draw!" : 'No winner yet'}
+      </div>
+      <div className="status">
+        {winner || isDraw ? '' : `Next player: ${xIsNext ? 'X' : 'O'}`}
+      </div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -39,6 +61,14 @@ const Board: React.FC<BoardProps> = ({ xIsNext, squares, onPlay }) => {
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
       </div>
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup">
+            <h2>{isDraw ? "It's a Draw!" : `Winner: ${winner}`}</h2>
+            <button onClick={handlePlayAgain}>Play Again</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
