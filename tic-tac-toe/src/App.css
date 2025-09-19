@@ -1,83 +1,509 @@
-#root {
-  max-width: 1280px;
+/* Enhanced Tic Tac Toe Styles */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0 1rem 2rem;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
 }
 
-/* Tic Tac Toe specific styles */
-.board-row {
+/* Enhanced Game Container */
+.game-container {
   display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.square {
-  width: 60px;
-  height: 60px;
-  margin: 4px;
-  font-size: 24px;
-  font-weight: bold;
+@media (min-width: 900px) {
+  .game-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+    justify-content: center;
+  }
+  
+  .game-board-section {
+    flex: 1;
+    max-width: 500px;
+  }
+  
+  .game-info-section {
+    flex: 0 0 320px;
+    margin-right: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-.status {
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-}
-
-.game-info {
-  min-width: 150px;
-}
-
-.layout {
+/* Game Board Section */
+.game-board-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 }
 
+.status {
+  font-size: 1.8rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+/* Enhanced Board */
+.board {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: var(--shadow-xl);
+  transition: var(--transition);
+  animation: slideUp 0.4s ease;
+  border: 1px solid var(--border-color);
+  margin: 1rem 0;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Enhanced Squares */
+.square {
+  width: 90px;
+  height: 90px;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0.4rem;
+  border: 3px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.square::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.square:hover::before {
+  opacity: 0.1;
+}
+
+.square:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-color);
+}
+
+.square:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.square:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.square[data-value="X"] {
+  color: var(--primary-color);
+}
+
+.square[data-value="O"] {
+  color: var(--secondary-color);
+}
+
+/* Winning squares animation */
+.winning-square {
+  animation: pulse 1s infinite;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
+  border-color: var(--primary-color);
+}
+
+/* Enhanced Game Info Card */
+.game-info-card {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.game-info-card h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.game-info-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+/* Enhanced Moves Container */
+.moves-container {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 200px;
+  margin-bottom: 1.5rem;
+  padding-right: 0.5rem;
+}
+
+.moves-container ol {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.moves-container li {
+  margin-bottom: 0;
+}
+
+.moves-container button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.moves-container button::before {
+  content: '↳';
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.moves-container button:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateX(8px);
+}
+
+.moves-container .current-move button {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Enhanced Reset Button */
+.reset-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.reset-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.reset-button:active {
+  transform: translateY(0);
+}
+
+/* Content Cards for About and Developer pages */
+.content-card {
+  background: var(--bg-card);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  max-width: 800px;
+  margin: 0 auto;
+  transition: var(--transition);
+  animation: fadeIn 0.6s ease;
+}
+
+.content-card h2 {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 800;
+}
+
+.card-content {
+  color: var(--text-color);
+  line-height: 1.7;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.rules-section, .tech-stack {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-color);
+}
+
+.rules-section h3, .tech-stack h3 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.rules-section ul {
+  padding-left: 2rem;
+  text-align: left;
+}
+
+.rules-section li {
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.tech-badge {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+
+/* Enhanced Popup Styles */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(4px);
 }
 
 .popup {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
+  background: var(--bg-card);
+  padding: 3rem;
+  border-radius: 24px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  max-width: 450px;
+  width: 90%;
+  animation: scaleIn 0.3s ease;
 }
 
 .popup h2 {
-  margin-bottom: 1.5rem;
-  color: #111;
-  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+  font-size: 2.5rem;
+  font-weight: 800;
 }
 
 .popup button {
-  background-color: #4CAF50;
+  background: linear-gradient(135deg, var(--secondary-color), var(--success-color));
   color: white;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 1rem 3rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
 }
 
 .popup button:hover {
-  background-color: #45a049;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Improved responsive design */
+@media (max-width: 768px) {
+  .game-container {
+    gap: 1.5rem;
+  }
+  
+  .board {
+    padding: 1.5rem;
+    transform: scale(1);
+  }
+  
+  .square {
+    width: 75px;
+    height: 75px;
+    font-size: 2.8rem;
+  }
+  
+  .game-info-card {
+    padding: 1.5rem;
+  }
+  
+  .moves-container button {
+    font-size: 1rem;
+    padding: 0.7rem 0.8rem;
+  }
+  
+  .content-card {
+    padding: 2rem;
+  }
+  
+  .content-card h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .square {
+    width: 65px;
+    height: 65px;
+    font-size: 2.5rem;
+    margin: 0.3rem;
+  }
+  
+  .board {
+    padding: 1rem;
+  }
+  
+  .game-info-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .popup {
+    padding: 2rem;
+  }
+  
+  .popup h2 {
+    font-size: 2rem;
+  }
+  
+  .popup button {
+    font-size: 1.3rem;
+    padding: 0.8rem 2rem;
+  }
+  
+  .content-card {
+    padding: 1.5rem;
+  }
+  
+  .card-content {
+    font-size: 1.1rem;
+  }
+}
+
+/* Custom scrollbar for moves container */
+.moves-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.moves-container::-webkit-scrollbar-track {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+.moves-container::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+.moves-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .square,
+  .reset-button,
+  .moves-container button,
+  .popup button {
+    transition: none;
+    animation: none;
+  }
+  
+  .square:hover {
+    transform: none;
+  }
 }

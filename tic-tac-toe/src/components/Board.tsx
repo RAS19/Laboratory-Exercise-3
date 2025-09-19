@@ -10,20 +10,18 @@ interface BoardPropsWithReset extends BoardProps {
 const Board: React.FC<BoardPropsWithReset> = ({ xIsNext, squares, onPlay, onPlayAgain }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isDraw, setIsDraw] = useState(false);
-  const [winner, setWinner] = useState<'X' | 'O' | null>(null);
+
+  const winner = calculateWinner(squares);
 
   useEffect(() => {
-    const winnerResult = calculateWinner(squares);
-    if (winnerResult) {
-      setWinner(winnerResult);
+    if (winner) {
       setShowPopup(true);
       setIsDraw(false);
     } else if (checkDraw(squares)) {
       setShowPopup(true);
       setIsDraw(true);
-      setWinner(null);
     }
-  }, [squares]);
+  }, [winner, squares]);
 
   function handleClick(i: number) {
     if (winner || squares[i] || checkDraw(squares)) {
@@ -37,15 +35,11 @@ const Board: React.FC<BoardPropsWithReset> = ({ xIsNext, squares, onPlay, onPlay
   function handlePlayAgain() {
     setShowPopup(false);
     setIsDraw(false);
-    setWinner(null);
     if (onPlayAgain) onPlayAgain();
   }
 
   return (
     <>
-      <div className="winner-title">
-        {winner ? `Winner: ${winner}` : isDraw ? "It's a Draw!" : 'Tic Tac Toe'}
-      </div>
       <div className="status">
         {winner || isDraw ? '' : `Next player: ${xIsNext ? 'X' : 'O'}`}
       </div>
@@ -68,22 +62,12 @@ const Board: React.FC<BoardPropsWithReset> = ({ xIsNext, squares, onPlay, onPlay
       </div>
       {showPopup && (
         <div className="popup-overlay">
-          <div className="popup-content">
-            <div className="popup-header">
-              <h2>{isDraw ? "It's a Draw!" : `Player ${winner} Wins!`}</h2>
-            </div>
-            <div className="popup-body">
-              <div className="trophy-animation">
-                {!isDraw && <div className="trophy">🏆</div>}
-                {isDraw && <div className="draw-icon">🤝</div>}
-              </div>
-              <p>{isDraw ? 'No one wins this time. Try again!' : `Congratulations to Player ${winner}!`}</p>
-            </div>
-            <div className="popup-footer">
-              <button className="play-again-btn" onClick={handlePlayAgain}>
-                Play Again
-              </button>
-            </div>
+          <div className="popup">
+            <h2>
+              {isDraw ? "It's a Draw! 🤝" : 
+               winner === 'X' ? "X Wins! 🎉" : "O Wins! 🎉"}
+            </h2>
+            <button onClick={handlePlayAgain}>Play Again</button>
           </div>
         </div>
       )}
