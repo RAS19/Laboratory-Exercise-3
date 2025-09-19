@@ -8,6 +8,7 @@ function App() {
   const [history, setHistory] = useState<SquareValue[][]>([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [activeTab, setActiveTab] = useState('home');
+  const [darkMode, setDarkMode] = useState(false);
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
@@ -22,6 +23,11 @@ function App() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
   }
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle('dark-mode');
+  };
 
   const moves = history.map((_, move) => {
     const description = move ? `Go to move #${move}` : 'Go to game start';
@@ -73,10 +79,15 @@ function App() {
   }
 
   return (
-    <>
-      <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
+    <div className={darkMode ? 'app dark-mode' : 'app'}>
+      <Navbar 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab} 
+        darkMode={darkMode}
+        onDarkModeToggle={toggleDarkMode}
+      />
       {content}
-    </>
+    </div>
   );
 }
 

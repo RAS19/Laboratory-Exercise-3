@@ -239,3 +239,74 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Dark mode styles */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode #root {
+  background: #1e1e1e;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .navbar {
+  background: #1e1e1e;
+  border-bottom: 2px solid #444;
+}
+
+body.dark-mode .navbar-title {
+  color: #fff;
+}
+
+body.dark-mode .navbar-links button {
+  color: #fff;
+}
+
+body.dark-mode .square {
+  background: #2d2d2d;
+  border: 2px solid #444;
+  color: #fff;
+}
+
+body.dark-mode .square:hover {
+  background: #3a3a3a;
+}
+
+body.dark-mode .status,
+body.dark-mode .winner-title {
+  color: #fff;
+}
+
+body.dark-mode .game-info ol {
+  color: #fff;
+}
+
+body.dark-mode .about, 
+body.dark-mode .developer {
+  background: #2d2d2d;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .about h2, 
+body.dark-mode .developer h2,
+body.dark-mode .about p, 
+body.dark-mode .developer p {
+  color: #fff;
+}
+
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 32px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.dark-mode-toggle:hover {
+  background: rgba(255,255,255,0.1);
+}
