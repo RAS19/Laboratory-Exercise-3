@@ -413,3 +413,151 @@ body.dark-mode .play-again-btn {
   from { transform: translateY(0); }
   to { transform: translateY(-15px); }
 }
+
+.board {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+body.dark-mode .board {
+  background: linear-gradient(135deg, #2d2b55 0%, #1e1e2e 100%);
+}
+
+/* Square enhancements */
+.square {
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.square:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Game info enhancements */
+.game-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+body.dark-mode .game-info {
+  background: #2d2d2d;
+}
+
+.game-info ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.game-info li {
+  margin-bottom: 10px;
+}
+
+.game-info button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.game-info button:hover {
+  background: #45a049;
+  transform: translateX(5px);
+}
+
+/* About and Developer section enhancements */
+.about, .developer {
+  border-left: 4px solid #6a11cb;
+  transition: all 0.3s ease;
+}
+
+.about:hover, .developer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .about, 
+body.dark-mode .developer {
+  border-left: 4px solid #8a63d2;
+}
+
+/* Navbar enhancements */
+.navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-links button {
+  position: relative;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-links button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #6a11cb;
+  transition: width 0.3s ease;
+}
+
+.navbar-links button:hover::after,
+.navbar-links button.active::after {
+  width: 100%;
+}
+
+.navbar-links button.active {
+  font-weight: bold;
+}
+
+/* Smooth transitions for dark mode */
+body, #root, .navbar, .square, .game-info, .about, .developer {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom scrollbar for game info */
+.game-info::-webkit-scrollbar {
+  width: 6px;
+}
+
+.game-info::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.game-info::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.game-info::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+body.dark-mode .game-info::-webkit-scrollbar-track {
+  background: #3d3d3d;
+}
+
+body.dark-mode .game-info::-webkit-scrollbar-thumb {
+  background: #777;
+}
+
+body.dark-mode .game-info::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
