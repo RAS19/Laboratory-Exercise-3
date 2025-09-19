@@ -81,9 +81,6 @@ body {
 .navbar-title {
   font-size: 2.2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   margin: 0;
   line-height: 1;
 }
